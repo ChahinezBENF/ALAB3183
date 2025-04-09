@@ -86,7 +86,21 @@ router
     else next();
   });
 
+
+//Part 2: Adding Additional Routes
+
+// 1- GET /api/users/:id/posts
+// Retrieves all posts by a user with the specified id.
+
+const posts = require("../data/posts"); // Import posts data
+
+router.get("/:id/posts", (req, res) => {
+  const userPosts = posts.filter((post) => post.userId == req.params.id);
+  res.json(userPosts);
+});
+
+
+
 module.exports = router;
 
 
-//Part 2: Adding Additional Routes

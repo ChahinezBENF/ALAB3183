@@ -83,4 +83,21 @@ router
     else next();
   });
 
+//Part 2: Adding Additional Routes  
+
+//2- GET /api/posts?userId=<VALUE>
+// Retrieves all posts by a user with the specified postId.
+// It is common for APIs to have multiple endpoints that accomplish the same task.
+//  This route uses a "userId" query parameter to filter posts, while the one above uses a route parameter.
+
+router.get("/", (req, res) => {
+  if (req.query.userId) {
+    const filteredPosts = posts.filter((post) => post.userId == req.query.userId);
+    res.json(filteredPosts);
+  } else {
+    res.json(posts); // Return all posts if no query provided
+  }
+});
+
+
 module.exports = router;

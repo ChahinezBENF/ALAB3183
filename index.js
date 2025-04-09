@@ -10,6 +10,8 @@ const bodyParser = require("body-parser");
 // These are now route imports, not database imports!
 const users = require("./routes/users");
 const posts = require("./routes/posts");
+const comments = require("./routes/comments");
+
 
 
 const app = express();
@@ -26,10 +28,7 @@ app.use(bodyParser.json({ extended: true }));
 app.use((req, res, next) => {
   const time = new Date();
 
-  console.log(
-    `-----
-${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
-  );
+  console.log(`----- ${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.` );
   if (req.body && Object.keys(req.body).length > 0) {// Check if req.body exists
     console.log("Containing the data:");
     console.log(`${JSON.stringify(req.body)}`);
@@ -69,6 +68,7 @@ app.use("/api", function (req, res, next) {
 // Use our Routes
 app.use("/api/users", users);
 app.use("/api/posts", posts);
+app.use("/api/comments", comments);
 /////////////////////////////
 
 
@@ -113,14 +113,22 @@ app.get("/api", (req, res) => {
 });
 
 /////////////////////////////
-// Custom 404 (not found) middleware.
-// Since we place this last, it will only process
-// if no other routes have already sent a response!
-// We also don't need next(), since this is the
-// last stop along the request-response cycle.
-app.use((req, res) => {
-  res.status(404);
-  res.json({ error: "Resource Not Found" });
+// 404 Middleware
+app.use((req, res, next) => {
+  next(error(404, "Resource Not Found"));
+});
+
+// Error-handling middleware.
+// Any call to next() that includes an
+// Error() will skip regular middleware and
+// only be processed by error-handling middleware.
+// This changes our error handling throughout the application,
+// but allows us to change the processing of ALL errors
+// at once in a single location, which is important for
+// scalability and maintainability.
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({ error: err.message });
 });
 
 app.listen(port, () => {
