@@ -8,9 +8,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "body-parser": "^2.2.0",
     "express": "^5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChahinezBENF/ALAB3183.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChahinezBENF/ALAB3183/issues"
+  },
+  "homepage": "https://github.com/ChahinezBENF/ALAB3183#readme",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
