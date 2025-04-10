@@ -1,27 +1,27 @@
 const comments = [
   {
-    "id": 2,
+    "id": 1,
     "userId": 2,
     "postId": 3,
-    "body": "This is a test comment for Post"
+    "body": "Test comment 1"
+  },
+  {
+    "id": 2,
+    "userId": 1,
+    "postId": 2,
+    "body": "Test comment 2"
   },
   {
     "id": 3,
     "userId": 1,
     "postId": 2,
-    "body": "Test comment for DELETE"
-  },
-  {
-    "id": 3,
-    "userId": 1,
-    "postId": 2,
-    "body": "Test comment"
+    "body": "Test comment 3"
   },
   {
     "id": 4,
     "userId": 3,
-    "postId": 2,
-    "body": "Test comment to get id1 again"
+    "postId": 3,
+    "body": "Test comment 4"
   }
 ];
 module.exports = comments;

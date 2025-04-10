@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const posts = require("../data/posts");
+const comments = require("../data/comments"); 
 
 // This is the same code as the previous example!
 // We've simply changed "app" to "router" and
@@ -97,6 +98,25 @@ router.get("/", (req, res) => {
   } else {
     res.json(posts); // Return all posts if no query provided
   }
+});
+
+//10- GET /posts/:id/comments
+// Retrieves all comments made on the post with the specified id.
+
+router.get("/:id/comments", (req, res) => {
+  const postComments = comments.filter((comment) => comment.postId == req.params.id);
+  res.json(postComments);
+});
+
+//12- GET /posts/:id/comments?userId=<VALUE>
+// Retrieves all comments made on the post with the specified id by a user with the specified userId.
+
+router.get("/:id/comments", (req, res) => {
+  const postComments = comments.filter((comment) => comment.postId == req.params.id);
+  if (req.query.userId) {
+    return res.json(postComments.filter((comment) => comment.userId == req.query.userId));
+  }
+  res.json(postComments);
 });
 
 

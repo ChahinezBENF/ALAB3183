@@ -8,7 +8,12 @@ const fs = require("fs");
 // Note that we do not have any comments data yet; that is okay! Make sure that you create a place to store comments,
 // but you do not need to populate that data.
 
-//Retrive all comments filter by userId or postId
+//8- GET /comments?userId=<VALUE>
+// Retrieves comments by the user with the specified userId.
+//9- GET /comments?postId=<VALUE>
+// Retrieves comments made on the post with the specified postId.
+
+//Retrive all comments filter by userId or postId in same get (question 3-8-9)
 router.get("/", (req, res) => {
     if (req.query.userId) {
       return res.json(comments.filter((comment) => comment.userId == req.query.userId));
@@ -94,6 +99,10 @@ router.delete("/:id", (req, res) => {
       res.status(404).json({ error: "Comment Not Found" });
     }
   });
+
+  //8- GET /comments?userId=<VALUE>
+// Retrieves comments by the user with the specified userId.
+
 
 
 module.exports = router; 
